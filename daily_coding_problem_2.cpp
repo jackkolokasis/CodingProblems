@@ -14,27 +14,58 @@
  */
 
 #include <iostream>
-#include <vector>
+#include <assert.h>
+#include <string.h>
 
 using namespace std;
 
+/*
+ * @desc Print product array for a given array
+ *
+ * @param arr    Input Array
+ * @param n      Size of the given array
+ *
+ */
+void productArray(int arr[], int n)
+{
+    assert((n > 0, "The array must no be empty"));
+
+    int i;
+    int tmp = 1;
+
+    // Allocate memory for the product array
+    int * prodArr = new int[(sizeof(int) * n)];
+
+    // Initialize the product array as 1
+    memset(prodArr, 1, n);
+
+    // In this loop, temp variable contains product of 
+    // elements on left side excluding arr[i]
+    for (i = 0; i < n; i++) { 
+        prodArr[i] = tmp; 
+        tmp *= arr[i]; 
+    } 
+
+    // Initialize temp to 1 for product on right side 
+    tmp = 1; 
+
+    // In this loop, temp variable contains product of elements on
+    // right side excluding arr[i]
+    for (i = n - 1; i >= 0; i--) { 
+        prodArr[i] *= tmp; 
+        tmp *= arr[i]; 
+    } 
+
+    // Print the constructed prod array
+    for (i = 0; i < n; i++) 
+        cout << prodArr[i] << " ";
+}
+
 int main()
 {
-    vector <int> arr = {1, 2, 3, 4, 5}; // Input Vector
-    vector <int> newArr;                // New Vector
-    int totalProduct = 1;               // Total Calculated Product
-
-    // Calculate the total product of the array
-    for (int i = 0; i < arr.size(); i++)
-        totalProduct *= arr[i];
-
-    // Produce the new array
-    for (int i = 0; i < arr.size(); i++)
-    {
-        newArr.push_back(totalProduct / arr[i]);
-        cout << "Arr[" << i << "] = " << newArr[i] << endl;
-    }
+    int arr[] = {1, 2, 3, 4, 5};            // Input Array
+    int n = sizeof(arr) / sizeof(arr[0]);   // Number of Elements
+    productArray(arr, n);
 
     return 1;
 }
-
