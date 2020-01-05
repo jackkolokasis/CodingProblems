@@ -1,0 +1,6 @@
+### Editor ###
+## Vim temp files:
+.*sw[op]
+
+### Executables ###
+a.out
